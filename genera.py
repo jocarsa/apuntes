@@ -140,7 +140,7 @@ def apuntes(carpeta):
         <!doctype html>
         <html>
             <head>
-                <link rel="Stylesheet" href="generadorapuntes/estilo.css">
+                <link rel="Stylesheet" href="apuntes/estilo.css">
                 
             </head>
             <body>
@@ -211,9 +211,11 @@ def apuntes(carpeta):
         if not "zconsole" in item and not "acomment" in item  and not "zzactividad" in item and os.path.isfile(item) and not os.path.exists(directorio+"//"+nombrenuevoarchivo) and not "png" in item and not "jpg" in item:     
             f2 = open(directorio+"//"+nombrenuevoarchivo, 'w+')
         if not "zconsole" in item and not "acomment" in item  and not "zzactividad" in item and os.path.isfile(item) and not os.path.exists(directorio+"//"+nombrenuevoarchivoconsola) and not "png" in item and not "jpg" in item:     
-            f2 = open(directorio+"//"+nombrenuevoarchivoconsola, 'w+')
+            #f2 = open(directorio+"//"+nombrenuevoarchivoconsola, 'w+')
+            pass
         if not "zconsole" in item and not "acomment" in item  and not "zzactividad" in item and os.path.isfile(item) and not os.path.exists(directorio+"//"+nombrenuevoarchivoactividad) and not "png" in item and not "jpg" in item:     
-            f2 = open(directorio+"//"+nombrenuevoarchivoactividad, 'w+')
+            #f2 = open(directorio+"//"+nombrenuevoarchivoactividad, 'w+')
+            pass
         #print(item)
         if not(os.path.isfile(item)):
             f.write("</pre>")
@@ -350,7 +352,7 @@ def apuntes(carpeta):
                 
             if  "royecto" in os.path.basename(item):
                 ########## SI ES UN PROYECTO, MOSTRAMOS LA ESTRUCTURA DEL DIRECTORIO #######
-                f.write("<b><img src='directorio.svg' class='icono'>Estructura del directorio</b><br>")
+                f.write("<b><img src='apuntes/directorio.svg' class='icono'>Estructura del directorio</b><br>")
 ##                nivel3 = 1
 ##                nivel4 = 1
 ##                nivel5 = 1
@@ -362,13 +364,13 @@ def apuntes(carpeta):
                         sub = False
                         for i in range(0,depth2):
                             sub = True
-                            estructura += "<img src='vacio.svg' class='carpeta' style='margin-left:5px;'>"
+                            estructura += "<img src='apuntes/vacio.svg' class='carpeta' style='margin-left:5px;'>"
                         if sub == True:
-                            estructura += "<img src='nodocarpeta.svg' class='carpeta' style='margin-left:5px;'>"
+                            estructura += "<img src='apuntes/nodocarpeta.svg' class='carpeta' style='margin-left:5px;'>"
                         if os.path.isfile(item2) and not "acomment" in item and not "zconsole" in item and not "zzactividad" in item:
-                           estructura += "<img src='archivo.svg' class='carpeta'>"
+                           estructura += "<img src='apuntes/archivo.svg' class='carpeta'>"
                         else:
-                            estructura += "<img src='carpeta.svg' class='carpeta'>"
+                            estructura += "<img src='apuntes/carpeta.svg' class='carpeta'>"
                         if not "acomment" in item and not "zconsole" in item and not "zzactividad" in item and not "Captura" in item and not "captura" in item:
                             estructura += item2.split('\\')[-1].split('-')[-1]+"<br>"
                 
@@ -389,13 +391,13 @@ def apuntes(carpeta):
                     for i in range(2,len(partido)):
                         micadena += "/"
                         if i == len(partido)-1:
-                            micadena += "<img src='archivo.svg' class='carpeta archivo'>"
+                            micadena += "<img src='apuntes/archivo.svg' class='carpeta archivo'>"
                         else:
-                            micadena += "<img src='carpeta.svg' class='carpeta'>"
+                            micadena += "<img src='apuntes/carpeta.svg' class='carpeta'>"
                         
                         micadena += partido[i].split('-')[-1]
                     if "Captura" in item or "captura" in item:
-                        f.write("<b><img src='resultado.svg' class='icono'>Resultado del ejercicio:</b>")
+                        f.write("<b><img src='apuntes/resultado.svg' class='icono'>Resultado del ejercicio:</b>")
                         if "ZCaptura" in item:
                             pass
                         else:
@@ -439,11 +441,11 @@ def apuntes(carpeta):
                         if not "plica" in item:
                         
                             
-                            f.write("<p><img src='ejercicio.svg' class='icono'><big><b>Ejercicio del curso:</big></b></p>")
+                            f.write("<p><img src='apuntes/ejercicio.svg' class='icono'><big><b>Ejercicio del curso:</big></b></p>")
                             f.write("<div class='clearfix'></div>")
                         else:
                             pass
-                        f.write("<p><img src='ejercicio.svg' class='icono'><big><b>"+os.path.basename(item).replace(".acomment","").split("-")[1]+"</b></big></p>")
+                        f.write("<p><img src='apuntes/ejercicio.svg' class='icono'><big><b>"+os.path.basename(item).replace(".acomment","").split("-")[1]+"</b></big></p>")
                         f.write("<div class='clearfix'></div>")
                     else:
                         pass
@@ -638,7 +640,7 @@ def apuntes(carpeta):
         <footer>'''+piedepagina+'''</footer>
         </body>
         
-        <script src="generadorapuntes/script.js"></script>
+        <script src="apuntes/script.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-restmod/1.1.11/plugins/paged.js"></script>
         </html>
     ''')
@@ -651,7 +653,7 @@ def apuntes(carpeta):
         <footer>[pagina]</footer>
         </body>
         
-        <script src="generadorapuntes/diapositivas.js"></script>
+        <script src="apuntes/diapositivas.js"></script>
         </html>
     ''')
     f.close()
