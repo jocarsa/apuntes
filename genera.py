@@ -9,6 +9,8 @@ import hashlib
 ponimagen = True 
 codigopar = True
 
+escodigo = False
+
 def replace_star_line_break_with_b(text):
     # Define the regular expression pattern to find '**' followed by a line break
     pattern = r'\*\*<br>'
@@ -208,14 +210,12 @@ def apuntes(carpeta):
         nombrenuevoarchivo = nombrearchivo+".acomment"+extensionarchivo
         nombrenuevoarchivoconsola = nombrearchivo+".zconsole"+extensionarchivo
         nombrenuevoarchivoactividad = nombrearchivo+".zzactividad"+extensionarchivo
-        if not "zconsole" in item and not "acomment" in item  and not "zzactividad" in item and os.path.isfile(item) and not os.path.exists(directorio+"//"+nombrenuevoarchivo) and not "png" in item and not "jpg" in item:     
+        if not "zconsole" in item and not "acomment" in item  and not "zzactividad" in item and os.path.isfile(item) and not os.path.exists(directorio+"//"+nombrenuevoarchivo) and not "png" in item and not "jpg" in item and not "svg" in item:     
             f2 = open(directorio+"//"+nombrenuevoarchivo, 'w+')
-        if not "zconsole" in item and not "acomment" in item  and not "zzactividad" in item and os.path.isfile(item) and not os.path.exists(directorio+"//"+nombrenuevoarchivoconsola) and not "png" in item and not "jpg" in item:     
-            #f2 = open(directorio+"//"+nombrenuevoarchivoconsola, 'w+')
-            pass
-        if not "zconsole" in item and not "acomment" in item  and not "zzactividad" in item and os.path.isfile(item) and not os.path.exists(directorio+"//"+nombrenuevoarchivoactividad) and not "png" in item and not "jpg" in item:     
-            #f2 = open(directorio+"//"+nombrenuevoarchivoactividad, 'w+')
-            pass
+        if not "zconsole" in item and not "acomment" in item  and not "zzactividad" in item and os.path.isfile(item) and not os.path.exists(directorio+"//"+nombrenuevoarchivoconsola) and not "png" in item and not "jpg" in item and not "svg" in item:     
+            f2 = open(directorio+"//"+nombrenuevoarchivoconsola, 'w+')
+        if not "zconsole" in item and not "acomment" in item  and not "zzactividad" in item and os.path.isfile(item) and not os.path.exists(directorio+"//"+nombrenuevoarchivoactividad) and not "png" in item and not "jpg" in item and not "svg" in item:     
+            f2 = open(directorio+"//"+nombrenuevoarchivoactividad, 'w+')
         #print(item)
         if not(os.path.isfile(item)):
             f.write("</pre>")
@@ -352,7 +352,7 @@ def apuntes(carpeta):
                 
             if  "royecto" in os.path.basename(item):
                 ########## SI ES UN PROYECTO, MOSTRAMOS LA ESTRUCTURA DEL DIRECTORIO #######
-                f.write("<b><img src='apuntes/directorio.svg' class='icono'>Estructura del directorio</b><br>")
+                f.write("<b><img src='apuntes/carpeta.svg' class='carpeta'>Estructura del directorio</b><br>")
 ##                nivel3 = 1
 ##                nivel4 = 1
 ##                nivel5 = 1
@@ -368,7 +368,7 @@ def apuntes(carpeta):
                         if sub == True:
                             estructura += "<img src='apuntes/nodocarpeta.svg' class='carpeta' style='margin-left:5px;'>"
                         if os.path.isfile(item2) and not "acomment" in item and not "zconsole" in item and not "zzactividad" in item:
-                           estructura += "<img src='apuntes/archivo.svg' class='carpeta'>"
+                           estructura += "<img src='archivo.svg' class='carpeta'>"
                         else:
                             estructura += "<img src='apuntes/carpeta.svg' class='carpeta'>"
                         if not "acomment" in item and not "zconsole" in item and not "zzactividad" in item and not "Captura" in item and not "captura" in item:
@@ -391,13 +391,12 @@ def apuntes(carpeta):
                     for i in range(2,len(partido)):
                         micadena += "/"
                         if i == len(partido)-1:
-                            micadena += "<img src='apuntes/archivo.svg' class='carpeta archivo'>"
+                            micadena += "<img src='archivo.svg' class='carpeta archivo'>"
                         else:
-                            micadena += "<img src='apuntes/carpeta.svg' class='carpeta'>"
-                        
-                        micadena += partido[i].split('-')[-1]
+                            micadena += "<img src='carpeta.svg' class='carpeta'>"
+                            micadena += partido[i].split('-')[-1]
                     if "Captura" in item or "captura" in item:
-                        f.write("<b><img src='apuntes/resultado.svg' class='icono'>Resultado del ejercicio:</b>")
+                        f.write("<b>Resultado del ejercicio:</b>")
                         if "ZCaptura" in item:
                             pass
                         else:
@@ -409,9 +408,9 @@ def apuntes(carpeta):
                     elif "zzactividad" in item:
                         if os.stat(item).st_size != 0:
                             f.write("<div class='cabeceraactividad'>Actividad</div>")
-                    elif ("png" in item or "jpg" in item or "avif" in item) and (not "Captura" in item or not "captura" in item ):
+                    elif ("png" in item or "jpg" in item or "avif" in item or "svg" in item) and (not "Captura" in item or not "captura" in item ):
                         pass
-                    elif ("png" in item or "jpg" in item or "avif" in item) and not "Ilustracion" in item :
+                    elif ("png" in item or "jpg" in item or "avif" in item or "svg" in item) and not "Ilustracion" in item :
                         
                         pass
                     elif item.split('\\')[-1] in excepciones:
@@ -420,7 +419,7 @@ def apuntes(carpeta):
                        
                         pass
                
-        if "png" in item or "jpg" in item:
+        if "png" in item or "jpg" in item or "png" in item:
             if os.path.basename(item) in archivos:
                 archivos[os.path.basename(item)] = os.path.getsize(item)
                 ponimagen= True
@@ -438,14 +437,17 @@ def apuntes(carpeta):
                 #print("c", end="")
                 try:
                     if not "png" in item:
-                        if not "plica" in item:
+                        if not "plica" in item and os.path.getsize(item) != 0 and os.path.basename(item).count('.') > 1:
                         
                             
-                            f.write("<p><img src='apuntes/ejercicio.svg' class='icono'><big><b>Ejercicio del curso:</big></b></p>")
+                            f.write("<p><big><b>Ejercicio del curso:</big></b></p>")
                             f.write("<div class='clearfix'></div>")
                         else:
                             pass
-                        f.write("<p><img src='apuntes/ejercicio.svg' class='icono'><big><b>"+os.path.basename(item).replace(".acomment","").split("-")[1]+"</b></big></p>")
+                        if not "xplica" in item:
+                            f.write("<p><big>"+os.path.basename(item).replace(".acomment","").split("-")[1]+"</big></p>")
+                        else:
+                            f.write("<p><big><b>"+os.path.basename(item).replace(".acomment","").split("-")[1]+"</b></big></p>")
                         f.write("<div class='clearfix'></div>")
                     else:
                         pass
@@ -474,6 +476,16 @@ def apuntes(carpeta):
                         try:
                             if "---" in lines[i]:
                                 f.write("<pre class='code code2'>"+(lines[i].replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("---",""))+"</pre>")
+
+                            elif lines[i].startswith('###'):
+                                f.write('<div style="font-weight:bold">' + lines[i].lstrip('#').strip() + '</div>')
+                            elif '###' in lines[i]:
+                                if escodigo == False:
+                                    f.write('<pre>' + lines[i].lstrip('```').strip())
+                                    escodigo = True
+                                else:
+                                    f.write('</pre>' + lines[i].lstrip('```').strip())
+                                    escodigo = False
                             else:
                                 try:
                                     cadena = "<p>"+replace_lines_starting_with_code_block((lines[i].replace("&", "&amp;")
@@ -507,11 +519,11 @@ def apuntes(carpeta):
                 #f.write("</p>")
                 f.write("</pre>")
                 f.write("<br>")
-            elif "Captura" in item or "captura" in item:
+            elif "Captura" in item or "captura" in item or "svg" in os.path.basename(item):
                 f.write("</pre><pre class='captura'><img src='"+subecarpeta+item+"'></pre>")
             elif "Ilustracion" in item:
                 f.write("</pre><pre class='captura'><img src='"+subecarpeta+item+"'></pre>")
-            elif "png" in item or "jpg" in item: ########## IMÁGENES EN JPG O PNG
+            elif "png" in item or "jpg" in item or "svg" in item: ########## IMÁGENES EN JPG O PNG
                 if ponimagen == False:
                     #print("tamaño del archivo en la lista: "+str(archivos[os.path.basename(item)]))
                     #print("tamaño del archivo: "+str(os.path.getsize(item)))
@@ -529,7 +541,7 @@ def apuntes(carpeta):
                         f.write("</pre><pre class='code'>(abreviado)</pre><br>")
                     elif str(os.path.basename(item)) in archivos.keys():
                         
-                        if (archivos[os.path.basename(item)] == content or archivos[os.path.basename(item)] == os.path.getsize(item)) and (not "jpg" in item or not "png" in item or not "avif" in item):
+                        if (archivos[os.path.basename(item)] == content or archivos[os.path.basename(item)] == os.path.getsize(item)) and (not "jpg" in item or not "png" in item or not "avif" in item or not "svg" in item):
                             #f.write("</pre><pre class='code'>(sin cambios)</pre<br>")
                             pass
                         else:
@@ -541,8 +553,11 @@ def apuntes(carpeta):
                                 f.write("<p><big><b>"+os.path.basename(item).split("-")[1].split(".")[0]+"</b></big></p>")
                             elif "png" in os.path.basename(item):
                                 pass
+                            elif "svg" in os.path.basename(item):
+                                pass
                             else:
-                                f.write("<p><big><b>"+os.path.basename(item).replace(".acomment","")+"</b></big></p>")
+                                pass
+                            f.write("<p><big><b>"+os.path.basename(item).replace(".acomment","")+"</b></big></p>")
                             #f.write("<b>Ejemplo completo de código: </b>")
                             f.write("<div class='nombrearchivo'><div class='boton rojo'></div><div class='boton amarillo'></div><div class='boton verde'></div>"+micadena+"</div>")
                             f.write("<pre class='code'>")
@@ -640,7 +655,7 @@ def apuntes(carpeta):
         <footer>'''+piedepagina+'''</footer>
         </body>
         
-        <script src="apuntes/script.js"></script>
+        <script src="generadorapuntes/script.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-restmod/1.1.11/plugins/paged.js"></script>
         </html>
     ''')
@@ -653,7 +668,7 @@ def apuntes(carpeta):
         <footer>[pagina]</footer>
         </body>
         
-        <script src="apuntes/diapositivas.js"></script>
+        <script src="generadorapuntes/diapositivas.js"></script>
         </html>
     ''')
     f.close()
